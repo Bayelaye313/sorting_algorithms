@@ -12,35 +12,32 @@
 
 int partition(int *array, int lo, int hi, size_t size)
 {
-	int pivot = array[hi];
-	int i = lo - 1;
+	int i = lo - 1, j = lo;
+	int pivot = array[hi], aux = 0;
 
-	for (int j = lo; j < hi; j++)
+	for (; j < hi; j++)
 	{
 		if (array[j] < pivot)
 		{
 			i++;
-			if (i != j)
+			if (array[i] != array[j])
 			{
-				array[i] ^= array[j];
-				array[j] ^= array[i];
-				array[i] ^= array[j];
+				aux = array[i];
+				array[i] = array[j];
+				array[j] = aux;
 				print_array(array, size);
 			}
 		}
 	}
-
 	if (array[i + 1] != array[hi])
 	{
-		array[i + 1] ^= array[hi];
-		array[hi] ^= array[i + 1];
-		array[i + 1] ^= array[hi];
+		aux = array[i + 1];
+		array[i + 1] = array[hi];
+		array[hi] = aux;
 		print_array(array, size);
 	}
-
 	return (i + 1);
 }
-
 /**
  * quick_sort - function that sorts an array of integers
  *              in ascending order using the Quick sort algorithm
