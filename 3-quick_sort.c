@@ -12,32 +12,35 @@
 
 int partition(int *array, int lo, int hi, size_t size)
 {
-	int i = lo - 1, j = lo;
-	int pivot = array[hi], aux = 0;
+	int pivot = array[hi];
+	int i = lo - 1;
 
-	for (; j < hi; j++)
+	for (int j = lo; j < hi; j++)
 	{
 		if (array[j] < pivot)
 		{
 			i++;
-			if (array[i] != array[j])
+			if (i != j)
 			{
-				aux = array[i];
-				array[i] = array[j];
-				array[j] = aux;
+				array[i] ^= array[j];
+				array[j] ^= array[i];
+				array[i] ^= array[j];
 				print_array(array, size);
 			}
 		}
 	}
+
 	if (array[i + 1] != array[hi])
 	{
-		aux = array[i + 1];
-		array[i + 1] = array[hi];
-		array[hi] = aux;
+		array[i + 1] ^= array[hi];
+		array[hi] ^= array[i + 1];
+		array[i + 1] ^= array[hi];
 		print_array(array, size);
 	}
+
 	return (i + 1);
 }
+
 /**
  * quick_sort - function that sorts an array of integers
  *              in ascending order using the Quick sort algorithm
@@ -63,16 +66,11 @@ void quick_sort(int *array, size_t size)
  */
 void quick_s(int *array, int lo, int hi, size_t size)
 {
+	int pivot;
+
 	if (lo < hi)
 	{
-		if (hi - lo + 1 <= MIN_SIZE)
-		{
-			insertion_sort(array + lo, hi - lo + 1, size);
-			return;
-		}
-
-		int pivot = partition(array, lo, hi, size);
-
+		pivot = partition(array, lo, hi, size);
 		quick_s(array, lo, pivot - 1, size);
 		quick_s(array, pivot + 1, hi, size);
 	}
