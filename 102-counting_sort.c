@@ -7,6 +7,7 @@
  * @array: pointer to array
  * @size: size of the array
  **/
+void counting_sort(int *array, size_t size);
 void counting_sort(int *array, size_t size)
 {
 	int j, max = array[0];
