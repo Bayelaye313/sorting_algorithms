@@ -8,11 +8,12 @@
  */
 void shell_sort(int *array, size_t size)
 {
+	size_t gap = 1;
+	size_t i, j;
+	int temp;
+
 	if (array == NULL || size < 2)
 		return;
-
-	unsigned int gap = 1;
-	int temp, i, j;
 
 	while (gap < size / 3)
 		gap = gap * 3 + 1;
